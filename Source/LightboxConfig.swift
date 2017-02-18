@@ -1,6 +1,7 @@
 import UIKit
 import Hue
 import AVKit
+import SDWebImage
 import AVFoundation
 
 open class LightboxConfig {
@@ -11,14 +12,9 @@ open class LightboxConfig {
 
   open static var loadImage: (_ imageView: UIImageView, _ URL: URL, _ completion: LoadImageCompletion?) -> Void = {
     imageView, URL, completion in
-    let imageRequest: URLRequest = URLRequest(url: URL)
+//    let imageRequest: URLRequest = URLRequest(url: URL)
 
-    NSURLConnection.sendAsynchronousRequest(imageRequest,
-      queue: OperationQueue.main,
-      completionHandler: { response, data, error in
-        if let data = data, let image = UIImage(data: data) {
-          imageView.image = image
-        }
+    imageView.sd_setImage(with: URL, completed: block)
 
         completion?(error as NSError?, imageView.image)
     })
